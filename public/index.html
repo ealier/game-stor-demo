@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-full scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dandan — магазин видеоигр</title>
+    <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="h-full bg-neutral-50 text-neutral-900">
+    <div
+      id="app"
+      class="min-h-screen flex flex-col backdrop-blur-xl bg-white/5"
+    >
+      <header
+        class="sticky top-0 z-40 border-b border-neutral-200 bg-white/80 backdrop-blur-md"
+      >
+        <div
+          class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
+        >
+          <div class="flex items-center space-x-3">
+            <div class="h-9 w-9 rounded-2xl overflow-hidden flex-shrink-0 ring-1 ring-neutral-200">
+              <img src="/images/dandanavatar.jpg" alt="Dandan" class="h-full w-full object-cover" />
+            </div>
+            <div>
+              <div class="text-[13px] font-semibold tracking-tight text-neutral-900">
+                Dandan
+              </div>
+              <div class="text-[11px] text-neutral-500">
+                Магазин цифровых видеоигр
+              </div>
+            </div>
+          </div>
+          <nav class="hidden md:flex items-center space-x-6 text-sm text-neutral-700">
+            <button data-route="home" class="nav-link active">Главная</button>
+            <button data-route="catalog" class="nav-link">Каталог</button>
+            <button data-route="account" id="accountNav" class="nav-link hidden">Личный кабинет</button>
+            <button data-route="chat" id="chatNav" class="nav-link hidden">Чат</button>
+            <button data-route="support" id="supportNav" class="nav-link hidden">Поддержка</button>
+          </nav>
+          <div class="flex items-center space-x-3">
+            <button
+              id="cartButton"
+              data-route="cart"
+              class="relative inline-flex items-center justify-center rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-800 shadow-sm ring-1 ring-neutral-200 hover:bg-white transition"
+            >
+              <span class="material-symbols-outlined text-sm mr-1">shopping_cart</span>
+              Корзина
+              <span
+                id="cartCount"
+                class="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-neutral-900 text-[11px] font-semibold text-white"
+              >
+                0
+              </span>
+            </button>
+            <button
+              id="authButton"
+              data-route="login"
+              class="hidden md:inline-flex rounded-full bg-neutral-900 px-4 py-1.5 text-xs font-semibold text-white hover:bg-black transition"
+            >
+              Войти
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1">
+        <section id="page-home" class="page-section">
+          <div
+            class="relative overflow-hidden border-b border-neutral-200 bg-white"
+          >
+            <div
+              class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20 grid lg:grid-cols-2 gap-10 items-center"
+            >
+              <div class="space-y-6">
+                <h1
+                  class="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-neutral-900"
+                >
+                  <span>Dandan.</span>
+                  <span class="block text-neutral-500 mt-2"
+                    >Игры, оформленные с вниманием к деталям.</span
+                  >
+                </h1>
+                <p class="text-neutral-500 text-sm sm:text-base max-w-xl">
+                  Спокойный каталог без визуального шума: аккуратная типографика,
+                  чистый интерфейс и понятный процесс покупки.
+                </p>
+                <div class="flex flex-wrap items-center gap-4">
+                  <button
+                    data-route="catalog"
+                    class="primary-btn"
+                  >
+                    Смотреть каталог
+                  </button>
+                  <button
+                    id="heroLoginButton"
+                    data-route="login"
+                    class="secondary-btn"
+                  >
+                    Войти
+                  </button>
+                </div>
+                <dl
+                  class="mt-6 grid grid-cols-3 gap-4 text-xs text-neutral-500 max-w-md"
+                >
+                  <div>
+                    <dt class="font-semibold text-neutral-900">5000+</dt>
+                    <dd>цифровых релизов</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold text-neutral-900">4.9★</dt>
+                    <dd>оценка пользователей</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold text-neutral-900">24/7</dt>
+                    <dd>поддержка геймеров</dd>
+                  </div>
+                </dl>
+              </div>
+              <div class="relative">
+                <div class="surface-card">
+                  <div
+                    class="relative space-y-4 p-6 sm:p-8 border border-neutral-200 rounded-3xl bg-white"
+                  >
+                    <p class="text-xs font-medium tracking-wide text-neutral-500">
+                      Топ‑релизы недели
+                    </p>
+                    <div
+                      id="homePopularGames"
+                      class="space-y-3 text-sm"
+                    ></div>
+                    <div
+                      class="mt-4 flex items-center justify-between text-[11px] text-neutral-500"
+                    >
+                      <span>Платформы: PC, PlayStation, Xbox, Switch</span>
+                      <span class="inline-flex items-center space-x-1">
+                        <span
+                          class="h-1.5 w-1.5 rounded-full bg-emerald-400"
+                        ></span>
+                        <span>Сервер онлайн</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 space-y-8 bg-neutral-50">
+            <div class="flex items-center justify-between gap-4">
+              <h2 class="section-title">Популярные жанры</h2>
+              <div class="text-xs text-neutral-500">
+                Выберите жанр, чтобы перейти в каталог.
+              </div>
+            </div>
+            <div
+              id="homeGenres"
+              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4"
+            ></div>
+          </div>
+        </section>
+
+        <section id="page-catalog" class="page-section hidden">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+            <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <h2 class="section-title">Каталог игр</h2>
+                <p class="text-xs text-neutral-500">
+                  Фильтрация по жанрам, платформам и цене. Всё без перезагрузки
+                  страницы.
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-3 justify-end items-center">
+                <div class="input-pill">
+                  <span class="material-symbols-outlined text-xs mr-1">search</span>
+                  <input
+                    id="searchInput"
+                    type="text"
+                    placeholder="Поиск по названию или описанию"
+                    class="bg-transparent outline-none text-xs placeholder:text-slate-500 w-40 sm:w-64"
+                  />
+                </div>
+                <div class="catalog-filter" data-filter="genre">
+                  <button type="button" class="catalog-filter-trigger" id="genreFilterTrigger">
+                    <span class="catalog-filter-value">Все жанры</span>
+                    <span class="material-symbols-outlined catalog-filter-chevron">expand_more</span>
+                  </button>
+                  <div class="catalog-filter-panel hidden" id="genreFilterPanel">
+                    <div class="catalog-filter-search">
+                      <span class="material-symbols-outlined text-sm text-neutral-400">search</span>
+                      <input type="text" id="genreFilterSearch" placeholder="Поиск жанра..." class="catalog-filter-search-input" />
+                    </div>
+                    <div id="genreFilterList" class="catalog-filter-list custom-scroll"></div>
+                  </div>
+                </div>
+                <div class="catalog-filter" data-filter="platform">
+                  <button type="button" class="catalog-filter-trigger" id="platformFilterTrigger">
+                    <span class="catalog-filter-value">Все платформы</span>
+                    <span class="material-symbols-outlined catalog-filter-chevron">expand_more</span>
+                  </button>
+                  <div class="catalog-filter-panel hidden" id="platformFilterPanel">
+                    <div id="platformFilterList" class="catalog-filter-list custom-scroll">
+                      <button type="button" class="catalog-filter-item" data-value="">Все платформы</button>
+                      <button type="button" class="catalog-filter-item" data-value="PC">PC</button>
+                      <button type="button" class="catalog-filter-item" data-value="PlayStation">PlayStation</button>
+                      <button type="button" class="catalog-filter-item" data-value="Xbox">Xbox</button>
+                      <button type="button" class="catalog-filter-item" data-value="Switch">Switch</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="catalog-filter" data-filter="sort">
+                  <button type="button" class="catalog-filter-trigger" id="sortFilterTrigger">
+                    <span class="catalog-filter-value">Сортировка</span>
+                    <span class="material-symbols-outlined catalog-filter-chevron">expand_more</span>
+                  </button>
+                  <div class="catalog-filter-panel hidden" id="sortFilterPanel">
+                    <div id="sortFilterList" class="catalog-filter-list custom-scroll">
+                      <button type="button" class="catalog-filter-item" data-value="">Сортировка</button>
+                      <button type="button" class="catalog-filter-item" data-value="price_asc">Цена: по возрастанию</button>
+                      <button type="button" class="catalog-filter-item" data-value="price_desc">Цена: по убыванию</button>
+                      <button type="button" class="catalog-filter-item" data-value="title">Название</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="catalogGrid"
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+            ></div>
+
+            <div class="flex items-center justify-center gap-3 pt-4">
+              <button id="prevPage" class="text-xs secondary-btn">Назад</button>
+              <span id="paginationInfo" class="text-xs text-neutral-500"></span>
+              <button id="nextPage" class="text-xs secondary-btn">Вперёд</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-game" class="page-section hidden">
+          <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8">
+            <button
+              data-route="catalog"
+              class="text-xs text-neutral-500 hover:text-neutral-900 mb-4 inline-flex items-center"
+            >
+              <span class="material-symbols-outlined text-xs mr-1">arrow_back</span>
+              Назад к каталогу
+            </button>
+            <div
+              id="gameDetail"
+              class="surface-card p-5 sm:p-7 grid md:grid-cols-5 gap-6"
+            ></div>
+          </div>
+        </section>
+
+        <section id="page-cart" class="page-section hidden">
+          <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+            <h2 class="section-title">Корзина</h2>
+            <div
+              id="cartItems"
+              class="space-y-3 max-h-[420px] overflow-y-auto custom-scroll"
+            ></div>
+            <div
+              class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-neutral-200 pt-4"
+            >
+              <div class="text-xs text-neutral-500" id="cartSummaryText"></div>
+              <div class="flex items-center gap-4">
+                <div class="text-right">
+                  <div class="text-[11px] text-neutral-500">Итого:</div>
+                  <div
+                    id="cartTotal"
+                    class="text-xl font-semibold text-neutral-900"
+                  >
+                    0 ₽
+                  </div>
+                </div>
+                <button id="checkoutButton" class="primary-btn text-xs">
+                  Оформить заказ
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-checkout" class="page-section hidden">
+          <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+            <button
+              data-route="cart"
+              class="text-xs text-neutral-500 hover:text-neutral-900 mb-4 inline-flex items-center"
+            >
+              <span class="material-symbols-outlined text-xs mr-1">arrow_back</span>
+              Назад в корзину
+            </button>
+            <h2 class="section-title">Оформление заказа</h2>
+
+            <div id="checkoutFormBox" class="surface-card p-5 space-y-4">
+              <h3 class="text-sm font-semibold text-neutral-900">Данные получателя</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div class="sm:col-span-2">
+                  <label class="block text-neutral-600 mb-1">Имя</label>
+                  <input type="text" id="checkoutRecipientName" placeholder="Ваше имя" class="input w-full" required />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-neutral-600 mb-1">Email</label>
+                  <input type="email" id="checkoutEmail" readonly class="input w-full bg-neutral-100" placeholder="Email" />
+                </div>
+                <div>
+                  <label class="block text-neutral-600 mb-1" id="checkoutPhoneLabel">Телефон (необязательно)</label>
+                  <input type="tel" id="checkoutPhone" placeholder="+7 (999) 123-45-67" class="input w-full" />
+                </div>
+              </div>
+
+              <h3 class="text-sm font-semibold text-neutral-900 pt-2">Способ оплаты</h3>
+              <div class="space-y-3 text-xs">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="paymentMethod" value="card" checked class="w-4 h-4" />
+                  <span>Банковская карта</span>
+                </label>
+                <div id="checkoutCardFormBox" class="pl-6 pt-2">
+                  <label class="block text-neutral-600 mb-2 text-[11px] font-medium uppercase tracking-wider">Данные карты</label>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md">
+                    <div class="sm:col-span-2">
+                      <label class="block text-neutral-500 mb-1">Номер карты</label>
+                      <input type="text" id="checkoutCardNumber" placeholder="0000 0000 0000 0000" maxlength="19" class="input w-full" inputmode="numeric" autocomplete="cc-number" />
+                    </div>
+                    <div>
+                      <label class="block text-neutral-500 mb-1">Срок действия</label>
+                      <input type="text" id="checkoutCardExpiry" placeholder="MM/YY" maxlength="5" class="input w-full" inputmode="numeric" autocomplete="cc-exp" />
+                    </div>
+                    <div>
+                      <label class="block text-neutral-500 mb-1">CVV</label>
+                      <input type="text" id="checkoutCardCvv" placeholder="123" maxlength="4" class="input w-full" inputmode="numeric" autocomplete="cc-csc" />
+                    </div>
+                    <div class="sm:col-span-2">
+                      <label class="block text-neutral-500 mb-1">Имя владельца</label>
+                      <input type="text" id="checkoutCardName" placeholder="IVAN IVANOV" class="input w-full uppercase" autocomplete="cc-name" />
+                    </div>
+                  </div>
+                </div>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="paymentMethod" value="sbp" class="w-4 h-4" />
+                  <span>СБП (Система быстрых платежей)</span>
+                </label>
+                <div id="checkoutSbpBankBox" class="hidden pl-6 pt-2">
+                  <div id="checkoutSbpBankSelected" class="hidden mb-2 py-2 px-3 rounded-lg bg-neutral-100 border border-neutral-200 text-xs">
+                    <span class="text-neutral-500">Выбран банк:</span>
+                    <span id="checkoutSbpBankName" class="font-semibold text-neutral-900 ml-1"></span>
+                  </div>
+                  <label class="block text-neutral-600 mb-2 text-[11px] font-medium uppercase tracking-wider">Выберите банк</label>
+                  <p class="text-[11px] text-amber-700 mb-2">Для оплаты через СБП обязательно укажите номер телефона.</p>
+                  <div class="bank-select-wrapper">
+                    <div class="bank-search-wrap">
+                      <span class="material-symbols-outlined bank-search-icon">search</span>
+                      <input type="text" id="checkoutSbpBankSearch" placeholder="Поиск по банкам..." class="bank-search-input" />
+                    </div>
+                    <div id="checkoutSbpBankList" class="bank-list custom-scroll">
+                      <button type="button" class="bank-list-item" data-bank="Сбербанк">Сбербанк</button>
+                      <button type="button" class="bank-list-item" data-bank="ВТБ">ВТБ</button>
+                      <button type="button" class="bank-list-item" data-bank="Т-Банк" data-search="т-банк тинькофф">Т-Банк</button>
+                      <button type="button" class="bank-list-item" data-bank="Газпромбанк">Газпромбанк</button>
+                      <button type="button" class="bank-list-item" data-bank="Альфа-Банк">Альфа-Банк</button>
+                      <button type="button" class="bank-list-item" data-bank="Россельхозбанк">Россельхозбанк</button>
+                      <button type="button" class="bank-list-item" data-bank="Открытие">Открытие</button>
+                      <button type="button" class="bank-list-item" data-bank="Райффайзен">Райффайзен</button>
+                      <button type="button" class="bank-list-item" data-bank="ЮниКредит">ЮниКредит</button>
+                      <button type="button" class="bank-list-item" data-bank="Росбанк">Росбанк</button>
+                      <button type="button" class="bank-list-item" data-bank="Промсвязьбанк">Промсвязьбанк</button>
+                      <button type="button" class="bank-list-item" data-bank="Совкомбанк">Совкомбанк</button>
+                      <button type="button" class="bank-list-item" data-bank="МКБ">МКБ</button>
+                      <button type="button" class="bank-list-item" data-bank="Росгосстрах Банк">Росгосстрах Банк</button>
+                    </div>
+                  </div>
+                  <input type="hidden" id="checkoutSbpBank" value="" />
+                </div>
+              </div>
+            </div>
+
+            <div id="checkoutItems" class="space-y-3"></div>
+            <div class="border-t border-neutral-200 pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div class="text-sm font-semibold text-neutral-900">
+                Итого: <span id="checkoutTotal">0 ₽</span>
+              </div>
+              <button id="checkoutConfirmBtn" class="primary-btn text-sm">
+                Подтвердить заказ
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-account" class="page-section hidden">
+          <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 grid lg:grid-cols-2 gap-8">
+            <div class="space-y-4">
+              <h2 class="section-title">Личный кабинет</h2>
+              <div id="accountProfileBox" class="surface-card p-5 space-y-4"></div>
+            </div>
+            <div class="space-y-4">
+              <h3 class="text-sm font-semibold text-neutral-900">
+                История заказов
+              </h3>
+              <div
+                id="ordersList"
+                class="surface-card p-4 space-y-3 max-h-[380px] overflow-y-auto custom-scroll"
+              ></div>
+              <div
+                id="adminPanel"
+                class="surface-card p-4 space-y-4 hidden border border-neutral-200"
+              >
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-semibold text-neutral-900">
+                    Админ‑панель
+                  </h3>
+                  <span class="badge">admin</span>
+                </div>
+                <form
+                  id="adminGameForm"
+                  class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs"
+                >
+                  <input
+                    type="hidden"
+                    id="adminGameId"
+                    name="id"
+                  />
+                  <input
+                    name="title"
+                    id="adminTitle"
+                    required
+                    placeholder="Название"
+                    class="input"
+                  />
+                  <input
+                    name="price"
+                    id="adminPrice"
+                    required
+                    type="number"
+                    step="0.01"
+                    placeholder="Цена"
+                    class="input"
+                  />
+                  <select
+                    name="genre_id"
+                    id="adminGenre"
+                    required
+                    class="input"
+                  >
+                    <option value="">Жанр</option>
+                  </select>
+                  <input
+                    name="platform"
+                    id="adminPlatform"
+                    required
+                    placeholder="Платформа"
+                    class="input"
+                  />
+                  <input
+                    name="release_date"
+                    id="adminReleaseDate"
+                    type="date"
+                    class="input"
+                  />
+                  <input
+                    name="image"
+                    id="adminImage"
+                    type="file"
+                    accept="image/*"
+                    class="input file-input sm:col-span-2"
+                  />
+                  <textarea
+                    name="description"
+                    id="adminDescription"
+                    required
+                    placeholder="Описание"
+                    rows="3"
+                    class="input sm:col-span-2"
+                  ></textarea>
+                  <textarea
+                    name="system_requirements"
+                    id="adminRequirements"
+                    placeholder="Системные требования"
+                    rows="2"
+                    class="input sm:col-span-2"
+                  ></textarea>
+                  <div class="flex gap-2 sm:col-span-2">
+                    <button
+                      type="submit"
+                      class="primary-btn text-xs flex-1"
+                    >
+                      Добавить игру
+                    </button>
+                    <button
+                      type="button"
+                      id="adminResetForm"
+                      class="secondary-btn text-xs"
+                    >
+                      Очистить
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-chat" class="page-section hidden">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-4">
+            <div class="flex items-center justify-between gap-3">
+              <h2 class="section-title">Чат</h2>
+              <span class="text-xs text-neutral-500">Личные сообщения и коды после оплаты</span>
+            </div>
+            <div class="grid lg:grid-cols-12 gap-4">
+              <aside class="lg:col-span-4 surface-card p-3 space-y-2 h-[520px] overflow-y-auto custom-scroll">
+                <p class="text-[11px] text-neutral-500 px-2">Ваши чаты по купленным играм</p>
+                <div id="chatThreadsList" class="space-y-2"></div>
+              </aside>
+              <div class="lg:col-span-8 space-y-3">
+                <div class="surface-card p-4">
+                  <div class="flex items-center justify-between gap-3 border-b border-neutral-200 pb-3 mb-3">
+                    <div>
+                      <p class="text-xs text-neutral-500">Текущий чат</p>
+                      <p id="chatCurrentTitle" class="text-sm font-semibold text-neutral-900">Выберите чат слева</p>
+                    </div>
+                    <button id="chatCallSpecialistBtn" type="button" class="secondary-btn text-xs" disabled>
+                      Позвать специалиста
+                    </button>
+                  </div>
+                  <div
+                    id="chatMessages"
+                    class="space-y-3 h-[300px] overflow-y-auto custom-scroll"
+                  ></div>
+                  <div id="chatQuickFaq" class="mt-3 flex flex-wrap gap-2"></div>
+                </div>
+                <form id="chatForm" class="flex items-center gap-2">
+                  <input
+                    id="chatInput"
+                    type="text"
+                    maxlength="500"
+                    placeholder="Напишите сообщение..."
+                    class="input w-full text-xs"
+                  />
+                  <button type="submit" class="primary-btn text-xs">
+                    Отправить
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-support" class="page-section hidden">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-4">
+            <div class="flex items-center justify-between gap-3">
+              <h2 class="section-title">Поддержка</h2>
+              <span class="text-xs text-neutral-500">Ответы администратора по запросам пользователей</span>
+            </div>
+            <div class="grid lg:grid-cols-12 gap-4">
+              <aside class="lg:col-span-4 surface-card p-3 space-y-2 h-[620px] overflow-y-auto custom-scroll">
+                <p class="text-[11px] text-neutral-500 px-2">Все пользовательские чаты (вызовы специалиста — сверху)</p>
+                <div class="space-y-2 px-1">
+                  <input
+                    id="adminSupportUserSearch"
+                    type="text"
+                    placeholder="Поиск пользователя..."
+                    class="input w-full text-xs"
+                  />
+                  <select id="adminSupportUserSelect" class="input w-full text-xs">
+                    <option value="">Все пользователи</option>
+                  </select>
+                </div>
+                <div id="adminSupportThreads" class="space-y-2"></div>
+              </aside>
+              <div class="lg:col-span-8 space-y-3">
+                <div class="surface-card p-4">
+                  <div class="flex items-center justify-between gap-3 border-b border-neutral-200 pb-3 mb-3">
+                    <div>
+                      <p class="text-xs text-neutral-500">Диалог</p>
+                      <p id="adminSupportTitle" class="text-sm font-semibold text-neutral-900">Выберите чат слева</p>
+                    </div>
+                    <button id="adminSupportResolveBtn" type="button" class="secondary-btn text-xs" disabled>
+                      Проблема решена
+                    </button>
+                  </div>
+                  <div id="adminSupportMessages" class="space-y-2 h-[430px] overflow-y-auto custom-scroll"></div>
+                </div>
+                <form id="adminSupportReplyForm" class="flex items-center gap-2">
+                  <input id="adminSupportReplyInput" type="text" maxlength="800" placeholder="Ответ пользователю..." class="input w-full text-xs" />
+                  <button type="submit" class="primary-btn text-xs">Отправить</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <section id="page-login" class="page-section hidden">
+        <div class="mx-auto max-w-md px-4 sm:px-6 lg:px-8 min-h-[calc(100vh-8.5rem)] flex items-center py-8">
+          <div class="space-y-6">
+            <h2 class="text-2xl font-semibold text-neutral-900">Вход в Dandan</h2>
+            <p class="text-sm text-neutral-500">
+              Используйте свою почту и пароль, чтобы продолжить покупки и просматривать историю заказов.
+            </p>
+            <form id="loginForm" class="space-y-4 text-sm surface-card p-6">
+              <div class="space-y-2">
+                <label class="text-xs font-medium text-neutral-600">Email</label>
+                <input required type="email" name="email" class="input w-full" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-medium text-neutral-600">Пароль</label>
+                <input required type="password" name="password" class="input w-full" />
+              </div>
+              <button type="submit" class="primary-btn w-full text-sm">Войти</button>
+            </form>
+            <p class="text-xs text-neutral-500">
+              Нет аккаунта?
+              <button data-route="register" class="underline underline-offset-4 hover:text-neutral-900">
+                Зарегистрироваться
+              </button>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-register" class="page-section hidden">
+        <div class="mx-auto max-w-md px-4 sm:px-6 lg:px-8 py-12">
+          <div class="space-y-6">
+            <h2 class="text-2xl font-semibold text-neutral-900">Создать аккаунт</h2>
+            <p class="text-sm text-neutral-500">
+              Один аккаунт для покупок, сохранения корзины и просмотра заказов.
+            </p>
+            <form id="registerForm" class="space-y-4 text-sm surface-card p-6">
+              <div class="space-y-2">
+                <label class="text-xs font-medium text-neutral-600">Имя</label>
+                <input required type="text" name="name" class="input w-full" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-medium text-neutral-600">Email</label>
+                <input required type="email" name="email" class="input w-full" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-medium text-neutral-600">Пароль</label>
+                <input required type="password" name="password" class="input w-full" />
+                <p class="text-[11px] text-neutral-500">Минимум 6 символов.</p>
+              </div>
+              <button type="submit" class="primary-btn w-full text-sm">Создать аккаунт</button>
+            </form>
+            <p class="text-xs text-neutral-500">
+              Уже есть аккаунт?
+              <button data-route="login" class="underline underline-offset-4 hover:text-neutral-900">
+                Войти
+              </button>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer
+        class="border-t border-neutral-200 bg-white/90 backdrop-blur-md py-4 mt-10"
+      >
+        <div
+          class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-neutral-500"
+        >
+          <div>© <span id="year"></span> Dandan. Все права защищены.</div>
+        </div>
+      </footer>
+    </div>
+
+    <div
+      id="toast"
+      class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 hidden px-4 py-2 rounded-full bg-neutral-900 text-xs text-white shadow-sm"
+    ></div>
+
+    <button
+      id="chatFab"
+      data-route="chat"
+      class="hidden fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-neutral-900 text-white shadow-lg ring-1 ring-neutral-700/40 hover:bg-black chat-fab-bounce"
+      title="Открыть чат"
+      aria-label="Открыть чат"
+    >
+      <span class="material-symbols-outlined text-2xl">chat</span>
+      <span
+        id="chatFabBadge"
+        class="hidden absolute -top-1 -right-1 min-w-[20px] h-5 px-1 rounded-full bg-rose-500 text-[10px] font-semibold flex items-center justify-center"
+      ></span>
+    </button>
+
+    <!-- Модальное окно редактирования игры -->
+    <div id="editGameModal" class="modal-overlay hidden">
+      <div class="modal-content max-w-xl max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold text-neutral-900">Редактировать игру</h3>
+          <button type="button" id="editGameModalClose" class="text-neutral-500 hover:text-neutral-900 p-1">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <form id="editGameForm" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <input type="hidden" id="editGameId" name="id" />
+          <input name="title" id="editTitle" required placeholder="Название" class="input sm:col-span-2" />
+          <input name="price" id="editPrice" required type="number" step="0.01" placeholder="Цена" class="input" />
+          <select name="genre_id" id="editGenre" required class="input">
+            <option value="">Жанр</option>
+          </select>
+          <input name="platform" id="editPlatform" required placeholder="Платформа" class="input" />
+          <input name="release_date" id="editReleaseDate" type="date" class="input" />
+          <input name="image" id="editImage" type="file" accept="image/*" class="input file-input sm:col-span-2" />
+          <textarea name="description" id="editDescription" required placeholder="Описание" rows="3" class="input sm:col-span-2"></textarea>
+          <textarea name="system_requirements" id="editRequirements" placeholder="Системные требования" rows="2" class="input sm:col-span-2"></textarea>
+          <div class="flex gap-2 sm:col-span-2">
+            <button type="submit" class="primary-btn text-xs flex-1">Сохранить изменения</button>
+            <button type="button" id="editGameModalCancel" class="secondary-btn text-xs">Отмена</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/app.js" type="module"></script>
+  </body>
+</html>
+
